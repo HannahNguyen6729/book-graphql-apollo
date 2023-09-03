@@ -20,27 +20,25 @@ export const resolvers = {
 
   Book: {
     author: (parent, args) => {
-      console.log({ parent, args });
+      //   console.log({ parent, args });
       return authors.find((author) => author.id == parent.authorId);
     },
   },
 
   Author: {
     books: (parent, args) => {
-      console.log({ parent, args });
+      //console.log({ parent, args });
       return books.filter((book) => book.authorId == parent.id);
     },
   },
 
   //MUTATION
   Mutation: {
-    createBook: (parent, args) => {
+    createAuthor: (parent, args) => {
       console.log({ parent, args });
-      const newBook = {
-        name: args.name,
-        genre: args.genre,
-        authorId: args.authorId,
-      };
+      return args;
+    },
+    createBook: (parent, args) => {
       return args;
     },
   },
