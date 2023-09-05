@@ -1,45 +1,42 @@
 // Resolvers define how to fetch the types defined in your schema.
-
-import { authors, books } from '../data/static.js';
+import { mongoDataMethods } from '../data/db.js';
 
 export const resolvers = {
   // QUERY
   Query: {
-    books: () => books,
-    authors: () => authors,
-    book: (parent, args) => {
-      // console.log({ parents, args });
-      const findBook = books.find((book) => book.id == args.id);
-      console.log({ findBook, args, parent });
-      return findBook;
+    books: async () => {
+      return await mongoDataMethods.getAllBooks();
     },
-    author: (parent, args) => {
-      return authors.find((author) => author.id == args.id);
+    authors: async () => {
+      return await mongoDataMethods.getAllAuthors();
+    },
+    book: async (parent, args) => {
+      return await mongoDataMethods.getBookById(args.id);
+    },
+    author: async (parent, args) => {
+      return await mongoDataMethods.getAuthorById(args.id);
     },
   },
 
   Book: {
-    author: (parent, args) => {
-      //   console.log({ parent, args });
-      return authors.find((author) => author.id == parent.authorId);
+    author: async (parent, args) => {
+      return await mongoDataMethods.getAuthorById(parent.authorId);
     },
   },
 
   Author: {
-    books: (parent, args) => {
-      //console.log({ parent, args });
-      return books.filter((book) => book.authorId == parent.id);
+    books: async (parent, args) => {
+      return await mongoDataMethods.getAllBooks({ authorId: parent.id });
     },
   },
 
   //MUTATION
   Mutation: {
-    createAuthor: (parent, args) => {
-      console.log({ parent, args });
-      return args;
+    createAuthor: async (parent, args) => {
+      return await mongoDataMethods.createAuthor(args);
     },
-    createBook: (parent, args) => {
-      return args;
+    createBook: async (parent, args) => {
+      return await mongoDataMethods.createBook(args);
     },
   },
 };
