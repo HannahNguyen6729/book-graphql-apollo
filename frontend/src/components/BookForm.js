@@ -35,48 +35,49 @@ const BookForm = () => {
   };
   //console.log({ dataMutation });
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Control
-            type="text"
-            placeholder="Book name"
-            name="name"
-            value={newBook.name}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Control
-            type="text"
-            placeholder="Book genre"
-            name="genre"
-            value={newBook.genre}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Control
-            as="select"
-            onChange={handleChange}
-            name="authorId"
-            value={newBook.authorId}
-          >
-            <option disabled hidden value="">
-              Select author
+    <Form onSubmit={handleSubmit}>
+      <Form.Group>
+        <Form.Control
+          type="text"
+          placeholder="Book name"
+          name="name"
+          value={newBook.name}
+          required
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Control
+          type="text"
+          placeholder="Book genre"
+          name="genre"
+          value={newBook.genre}
+          required
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Control
+          as="select"
+          onChange={handleChange}
+          name="authorId"
+          value={newBook.authorId}
+          required
+        >
+          <option disabled hidden value="">
+            Select author
+          </option>
+          {data?.authors.map((author) => (
+            <option key={author.id} value={author.id}>
+              {author.name}
             </option>
-            {data?.authors.map((author) => (
-              <option key={author.id} value={author.id}>
-                {author.name}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-        <Button className="float-right" variant="info" type="submit">
-          Add Book
-        </Button>
-      </Form>
-    </>
+          ))}
+        </Form.Control>
+      </Form.Group>
+      <Button className="float-right" variant="info" type="submit">
+        Add Book
+      </Button>
+    </Form>
   );
 };
 

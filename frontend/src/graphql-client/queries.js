@@ -52,3 +52,16 @@ export const ADD_BOOK = gql`
     }
   }
 `;
+
+export const ADD_AUTHOR = gql`
+  mutation CreateAuthor($name: String, $age: Int) {
+    createAuthor(name: $name, age: $age) {
+      name
+      age
+      id
+      books {
+        name
+      }
+    }
+  }
+`;
