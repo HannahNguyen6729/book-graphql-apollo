@@ -15,17 +15,14 @@ const AuthorForm = () => {
   const handleInputChange = (e) => {
     setNewAuthor({
       ...newAuthor,
-      [e.currentTarget.name]:
-        e.currentTarget.name === 'age'
-          ? Number(e.currentTarget.value)
-          : e.currentTarget.value,
+      [e.currentTarget.name]: e.currentTarget.value,
     });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
     addAuthor({
-      variables: newAuthor,
+      variables: { name, age: parseInt(age) },
     });
     setNewAuthor({ name: '', age: '' });
   };
